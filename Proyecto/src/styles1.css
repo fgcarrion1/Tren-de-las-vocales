@@ -1,0 +1,88 @@
+/* Estilos comunes para botones */
+button {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    padding: 20px; /* Ajusta el espacio interno */
+    font-size: 1.8rem; /* Tamaño de las letras */
+    color: #ffffff; /* Texto blanco para contraste */
+    background: linear-gradient(45deg, #32CD32, #7CFC00); /* Fondo verde vibrante */
+    border: 2px solid #32CD32;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(50, 205, 50, 0.5); /* Resplandor inicial */
+    transition: all 0.3s ease;
+    text-shadow: 0 0 6px rgba(50, 205, 50, 0.8); /* Sombra de texto verde */
+    width: 130px; /* Tamaño uniforme para todos los botones */
+    height: 90px; /* Tamaño uniforme para todos los botones */
+}
+
+button:hover {
+    background: linear-gradient(45deg, #7CFC00, #32CD32); /* Cambia el degradado al pasar el mouse */
+    box-shadow: 0 0 40px rgba(50, 205, 50, 0.8), 0 0 60px rgba(50, 205, 50, 0.6); /* Efecto de resplandor más intenso */
+    border-color: #7CFC00; /* Cambia el color del borde */
+    color: #ffffff; /* Mantiene el texto blanco */
+}
+
+/* Posiciones específicas para las vocales */
+.Vocal-A { top: 50%; left: 33%; } /* Encima del primer vagón */
+.Vocal-E { top: 50%; left: 44%; } /* Encima del segundo vagón */
+.Vocal-I { top: 50%; left: 55%; } /* Encima del tercer vagón */
+.Vocal-O { top: 50%; left: 65%; } /* Encima del cuarto vagón */
+.Vocal-U { top: 50%; left: 76%; } /* Encima del quinto vagón */
+
+/* Estilo específico para el botón "Play" */
+.Play {
+    top: 90%; 
+    left: 50%;
+    width: 150px; /* Ancho del botón "Play" */
+}
+
+/* Estilo específico para el botón "Youtube" */
+.Youtube {
+    position: fixed;
+    top: 50%; /* Ajustar para que esté más arriba */
+    left: 23%; /* Posición inicial cerca del tren */
+    transform: translate(0, 0);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Youtube img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    object-fit: cover;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #000;
+}

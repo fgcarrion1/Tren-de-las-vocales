@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juego de la Vocal U</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    .img-Secundaria {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .img-TrenJuego {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: auto;
+      z-index: 2;
+    }
+    .titulo {
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+    .grid-juego {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 20px 0;
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 4px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .card.correcto {
+      border-color: #4CAF50;
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+    }
+    .card.incorrecto {
+      border-color: #f44336;
+      background: linear-gradient(135deg, #f44336, #da190b);
+      color: white;
+    }
+    .card.deshabilitado {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .card-nombre {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .mensaje {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mensaje.exito {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+    }
+    .mensaje.error {
+      background: linear-gradient(135deg, #f44336, #da190b);
+      color: white;
+    }
+    .mensaje.victoria {
+      background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+      color: white;
+      font-size: 24px;
+    }
+    .boton-reiniciar {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    .boton-volver {
+      background: linear-gradient(135deg, #4ECDC4, #FF6B6B);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin-top: 20px;
+    }
+    .boton-volver:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    .progreso {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 20px 0;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+    }
+    .barra-progreso {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .barra-progreso-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4CAF50, #45a049);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image-container">
+      <img src="Imagenes/Paisaje.png" class="img-Secundaria" alt="Paisaje" />
+      <img src="Imagenes/TrenJuegos.png" class="img-TrenJuego" alt="Tren de Juegos" />
+    </div>
+  </div>
+
+  <h2 class="titulo">¡Encuentra las 3 imágenes que empiezan con la letra U!</h2>
+
+  <div class="progreso">
+    <div>Progreso: <span id="aciertos">0</span>/3</div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-fill" id="barraProgreso"></div>
+    </div>
+  </div>
+
+  <div class="grid-juego" id="gridJuego"></div>
+
+  <div id="mensaje" class="mensaje"></div>
+  <button id="reiniciar" class="boton-reiniciar" style="display: none;">🔄 Jugar de nuevo</button>
+  <button id="volver" class="boton-volver" style="display: none;">⬅ Volver al menú</button>
+
+  <script>
+    class JuegoVocalU {
+      constructor() {
+        this.correctosFijos = [
+          { nombre: "Uvas", imagen: "Imagenes/uvas.png" },
+          { nombre: "Unicornio", imagen: "Imagenes/unicorn.png" },
+          { nombre: "Universo", imagen: "Imagenes/universo.png" }
+        ];
+        this.distractoresBase = [
+          { nombre: "Oso", imagen: "Imagenes/oso.png" },
+          { nombre: "Abeja", imagen: "Imagenes/Abeja.png" },
+          { nombre: "Ecuador", imagen: "Imagenes/Ecuador.png" },
+          { nombre: "Agua", imagen: "Imagenes/agua.png" },
+          { nombre: "Estrella", imagen: "Imagenes/Estrella.png" }
+        ];
+        this.aciertos = 0;
+        this.totalCorrectos = 3;
+        this.grid = document.getElementById('gridJuego');
+        this.mensaje = document.getElementById('mensaje');
+        this.contadorAciertos = document.getElementById('aciertos');
+        this.barraProgreso = document.getElementById('barraProgreso');
+        this.botonReiniciar = document.getElementById('reiniciar');
+        this.botonVolver = document.getElementById('volver');
+
+        this.botonReiniciar.addEventListener('click', () => this.inicializar());
+        this.botonVolver.addEventListener('click', () => window.location.href = 'SegPro.html');
+
+        this.inicializar();
+      }
+
+      inicializar() {
+        this.aciertos = 0;
+        this.mensaje.textContent = '';
+        this.mensaje.className = 'mensaje';
+        this.botonReiniciar.style.display = 'none';
+        this.botonVolver.style.display = 'none';
+        this.grid.innerHTML = '';
+        this.juegoTerminado = false;
+        this.generarCartas();
+        this.actualizarProgreso();
+      }
+
+      generarCartas() {
+        // Seleccionar 2 distractores aleatorios
+        const distractores = [...this.distractoresBase];
+        const seleccionados = [];
+        for (let i = 0; i < 2; i++) {
+          const index = Math.floor(Math.random() * distractores.length);
+          seleccionados.push(distractores.splice(index, 1)[0]);
+        }
+
+        // Combinar con correctos
+        const cartas = [...this.correctosFijos.map(e => ({...e, correcto: true})),
+                        ...seleccionados.map(e => ({...e, correcto: false}))];
+
+        // Mezclar
+        cartas.sort(() => Math.random() - 0.5);
+
+        // Crear elementos
+        cartas.forEach(carta => {
+          const div = document.createElement('div');
+          div.className = 'card';
+          div.dataset.correcto = carta.correcto;
+          div.dataset.nombre = carta.nombre;
+          div.innerHTML = `
+            <img src="${carta.imagen}" alt="${carta.nombre}">
+            <div class="card-nombre">${carta.nombre}</div>
+          `;
+          div.addEventListener('click', e => this.manejarClick(e));
+          this.grid.appendChild(div);
+        });
+      }
+
+      manejarClick(event) {
+        if (this.juegoTerminado) return;
+        const card = event.currentTarget;
+        if (card.classList.contains('correcto') || card.classList.contains('incorrecto')) return;
+
+        const esCorrecto = card.dataset.correcto === "true";
+        const nombre = card.dataset.nombre;
+
+        if (esCorrecto) {
+          card.classList.add('correcto');
+          this.aciertos++;
+          this.mostrarMensaje(`¡Correcto! ${nombre} empieza con U ✅`, 'exito');
+        } else {
+          card.classList.add('incorrecto');
+          this.mostrarMensaje(`¡Ups! ${nombre} no empieza con U ❌`, 'error');
+          setTimeout(() => card.classList.remove('incorrecto'), 1500);
+        }
+
+        this.actualizarProgreso();
+
+        if (this.aciertos === this.totalCorrectos) {
+          this.completarJuego();
+        }
+      }
+
+      completarJuego() {
+        this.juegoTerminado = true;
+        this.mostrarMensaje('🎉 ¡Muy bien! Has encontrado todas las palabras que empiezan con U 🎉', 'victoria');
+        this.botonReiniciar.style.display = 'block';
+        this.botonVolver.style.display = 'block';
+        document.querySelectorAll('.card').forEach(card => card.classList.add('deshabilitado'));
+      }
+
+      mostrarMensaje(texto, tipo) {
+        this.mensaje.textContent = texto;
+        this.mensaje.className = `mensaje ${tipo}`;
+        if (tipo !== 'victoria') {
+          setTimeout(() => {
+            this.mensaje.textContent = '';
+            this.mensaje.className = 'mensaje';
+          }, 2000);
+        }
+      }
+
+      actualizarProgreso() {
+        this.contadorAciertos.textContent = this.aciertos;
+        this.barraProgreso.style.width = `${(this.aciertos / this.totalCorrectos) * 100}%`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => new JuegoVocalU());
+  </script>
+</body>
+</html>

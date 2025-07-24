@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>El tren de las vocales</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="stylesheet" href="src/styles1.css" />
+</head>
+<body>
+    <!-- Contenedor con imagen y título superpuesto -->
+    <div class="container">
+        <div class="contenedor-superpuesto">
+            <img src="Imagenes/Principal.jpg" class="img-fondo" alt="" />
+            <img src="Imagenes/Tren.gif" class="img-tren" alt="" />
+            <h1 class="TituloPrincipal">El tren de las vocales</h1>
+            <button class="Youtube" id="Youtube">
+                <img src="Imagenes/Youtube.png" alt="Youtube" />
+            </button>
+            <button class="Vocal-A" id="Vocal-A">A</button>
+            <button class="Vocal-E" id="Vocal-E">E</button>
+            <button class="Vocal-I" id="Vocal-I">I</button>
+            <button class="Vocal-O" id="Vocal-O">O</button>
+            <button class="Vocal-U" id="Vocal-U">U</button>
+            <button onclick="location.href='index.html'" class="Play" id="Play">
+                <span class="letter">Jugar</span>                
+            </button>
+        </div>
+    </div>
+    <div id="youtube-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Canción de las vocales</h2>
+            <iframe width="560" height="320" src="https://www.youtube.com/embed/CqTXFbnG0ag" 
+                    title="CANCION INFANTILES Las Vocales y los Animales" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+        </div>
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Aprender a escribir las vocales</h2>
+            <iframe width="560" height="320" src="https://www.youtube.com/embed/a4qHwKNKRSE" 
+                    title="Las vocales para niños ¿Cómo escribir las vocales?Aprende a escribir vocales mayúsculas y minúsculas" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Espera a que el DOM esté cargado
+        document.addEventListener("DOMContentLoaded", () => {
+            // Map de id de botones a URL destino (modifica según tus archivos reales)
+            const rutas = {
+                "Vocal-A": "A.html",
+                "Vocal-E": "E.html",
+                "Vocal-I": "I.html",
+                "Vocal-O": "O.html",
+                "Vocal-U": "U.html",
+            };
+
+            // Agregar event listeners para redirigir a las páginas
+            Object.entries(rutas).forEach(([idBoton, urlDestino]) => {
+                const boton = document.getElementById(idBoton);
+                if (boton) {
+                    boton.addEventListener("click", () => {
+                        window.location.href = urlDestino;
+                    });
+                }
+            });
+
+            // Manejo modal Youtube
+            const modal = document.getElementById("youtube-modal");
+            const closeButtons = modal.querySelectorAll(".close-button");
+            closeButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    modal.style.display = "none";
+                });
+            });
+
+            // Mostrar modal al hacer clic en el botón Youtube
+            const btnYoutube = document.getElementById("Youtube");
+            if (btnYoutube) {
+                btnYoutube.addEventListener("click", () => {
+                    modal.style.display = "block";
+                });
+            }
+
+            // Cerrar modal al hacer clic fuera del contenido
+            window.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

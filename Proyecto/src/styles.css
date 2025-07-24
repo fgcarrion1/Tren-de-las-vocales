@@ -1,0 +1,175 @@
+/* Estilos generales */
+/* Estilos generales */
+
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap');
+
+body {
+    font-family: 'Freckle Face', cursive;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+
+
+header, footer {
+    background: #35424a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+h1 {
+    color: #4a90e2;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+nav a:hover {
+    background: #e8491d;
+}
+
+/* Clases reutilizables */
+.position-absolute {
+    position: absolute;
+}
+
+.centered {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.background-cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
+}
+
+.z-index-3 {
+    z-index: 3;
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    position: relative;
+    overflow: hidden; /* Evita que el contenido desborde */
+}
+
+.contenedor-superpuesto, .image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.img-fondo, .img-tren, .img-TrenJuego, .img-Secundaria {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+}
+
+/* Imagen del tren */
+.img-tren {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    position: absolute; /* Asegura que esté en una posición específica */
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta el centro */
+    z-index: 2; /* Coloca el tren al frente de la imagen principal */
+}
+
+/* Imagen de fondo */
+.img-fondo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; /* Asegura que esté en una posición específica */
+    z-index: 1; /* Coloca la imagen principal detrás del tren */
+}
+
+/* Título superpuesto */
+.TituloPrincipal {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000000;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(140, 197, 194, 0.7);
+    margin: 0;
+    padding: 20px 40px;
+    background-color: rgba(106, 180, 199, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(2px);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, rgba(183, 223, 228, 0.5), rgba(183, 223, 228, 0.5));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    user-select: none;
+    z-index: 4;
+}
+
+.TituloPrincipal::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    border-radius: 25px;
+    z-index: -1;
+}
+
+/* Estilo para los botones de las vocales */
+button[id^="Vocal-"] {
+    font-size: 3rem; /* Tamaño de letra grande */
+    font-weight: bold; /* Letras en negrita */
+    color: #ffffff; /* Color blanco */
+    border-radius: 15px; /* Bordes redondeados */
+    /*padding: 15px 25px; /* Espaciado interno */
+    margin: 10px; /* Espaciado externo */
+    /*  text-align: center; Centra el texto */
+    transform: scale(1.1);
+}
+
+/* Contenedor para los botones */
+.botones-container {
+    display: flex; /* Utiliza flexbox para alinear los botones horizontalmente */
+    justify-content: center; /* Centra los botones horizontalmente */
+    align-items: center; /* Centra los botones verticalmente */ 
+    gap: 15px; /* Espaciado entre los botones */
+    position: absolute; /* Asegura que esté en la posición deseada */
+    transform: translate(-50%, -50%); /* Ajusta el centrado exacto */
+    z-index: 4; /* Asegura que esté por encima de otros elementos */
+}
